@@ -1,0 +1,551 @@
+{
+  "entities": {
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Authorized SENA instructor account with session hosting and cohort evaluation access.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "note": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120
+        },
+        "addedBy": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "note", "addedBy", "createdAt"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "SENA apprentice or instructor profile with document ID, training ficha, completed modules, and personal gamification progress.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "documentType": {
+          "type": "string",
+          "enum": ["CC", "TI", "CE", "PPT", "NA"]
+        },
+        "documentNumber": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 20,
+          "pattern": "^[a-zA-Z0-9\\-]+$"
+        },
+        "ficha": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 20,
+          "pattern": "^[a-zA-Z0-9\\-]+$"
+        },
+        "programa": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 120
+        },
+        "role": {
+          "type": "string",
+          "enum": ["aprendiz", "instructor"]
+        },
+        "onboardingCompleted": {
+          "type": "boolean"
+        },
+        "completedModules": {
+          "type": "array",
+          "description": "List of completed induction module identifiers (max 12)."
+        },
+        "xpPoints": {
+          "type": "integer"
+        },
+        "level": {
+          "type": "integer"
+        },
+        "earnedBadges": {
+          "type": "array",
+          "description": "Personal unlocked SENA achievement badges (max 10)."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "uid",
+        "displayName",
+        "documentType",
+        "documentNumber",
+        "ficha",
+        "programa",
+        "role",
+        "onboardingCompleted",
+        "completedModules",
+        "xpPoints",
+        "level",
+        "earnedBadges",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "CohortGroup": {
+      "title": "CohortGroup",
+      "description": "SENA training ficha/group managed by an instructor for multi-cohort induction tracking.",
+      "type": "object",
+      "properties": {
+        "fichaCode": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 20,
+          "pattern": "^[a-zA-Z0-9\\-]+$"
+        },
+        "programa": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 120
+        },
+        "jornada": {
+          "type": "string",
+          "enum": ["Diurna", "Mixta", "Nocturna", "Fines de semana", "Virtual"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["activa", "archivada"]
+        },
+        "instructorUid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "instructorName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "fichaCode",
+        "programa",
+        "jornada",
+        "status",
+        "instructorUid",
+        "instructorName",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "AccessLog": {
+      "title": "AccessLog",
+      "description": "Immutable entry record logging each apprentice login/registration event per ficha.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "apprenticeName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "documentType": {
+          "type": "string",
+          "enum": ["CC", "TI", "CE", "PPT", "NA"]
+        },
+        "documentNumber": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 20,
+          "pattern": "^[a-zA-Z0-9\\-]+$"
+        },
+        "ficha": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 20,
+          "pattern": "^[a-zA-Z0-9\\-]+$"
+        },
+        "programa": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 120
+        },
+        "action": {
+          "type": "string",
+          "enum": ["registro", "ingreso"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "uid",
+        "apprenticeName",
+        "documentType",
+        "documentNumber",
+        "ficha",
+        "programa",
+        "action",
+        "createdAt"
+      ]
+    },
+    "KnowledgeEvaluation": {
+      "title": "KnowledgeEvaluation",
+      "description": "Apprentice evaluation record measuring appropriation of SENA identity, regulation, and gamification rewards.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "apprenticeName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "documentNumber": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 20,
+          "pattern": "^[a-zA-Z0-9\\-]+$"
+        },
+        "ficha": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 20,
+          "pattern": "^[a-zA-Z0-9\\-]+$"
+        },
+        "programa": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 120
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["diagnostico", "integral"]
+        },
+        "totalScore": {
+          "type": "integer"
+        },
+        "correctCount": {
+          "type": "integer"
+        },
+        "questionCount": {
+          "type": "integer"
+        },
+        "domainScores": {
+          "type": "object",
+          "description": "Percentage score per competency domain (identidad, derechosDeberes, debidoProceso, etapaProductiva)."
+        },
+        "weakestDomain": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 40
+        },
+        "xpEarned": {
+          "type": "integer"
+        },
+        "bestStreak": {
+          "type": "integer"
+        },
+        "unlockedBadges": {
+          "type": "array",
+          "description": "Badges earned during this evaluation attempt (max 10)."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "uid",
+        "apprenticeName",
+        "documentNumber",
+        "ficha",
+        "programa",
+        "mode",
+        "totalScore",
+        "correctCount",
+        "questionCount",
+        "domainScores",
+        "weakestDomain",
+        "xpEarned",
+        "bestStreak",
+        "unlockedBadges",
+        "createdAt"
+      ]
+    },
+    "InstitutionalVideosConfig": {
+      "title": "InstitutionalVideosConfig",
+      "description": "Instructor-configurable YouTube video IDs for SENA Anthem and Institutional Presentation.",
+      "type": "object",
+      "properties": {
+        "anthemVideoId": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 20,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "anthemTitle": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 120
+        },
+        "anthemDescription": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 300
+        },
+        "institutionalVideoId": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 20,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "institutionalTitle": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 120
+        },
+        "institutionalDescription": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 300
+        },
+        "updatedBy": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "anthemVideoId",
+        "anthemTitle",
+        "anthemDescription",
+        "institutionalVideoId",
+        "institutionalTitle",
+        "institutionalDescription",
+        "updatedBy",
+        "updatedAt"
+      ]
+    },
+    "SensitizationSession": {
+      "title": "SensitizationSession",
+      "description": "Real-time instructor-led sensitization room for ethical dilemmas and regulation cases.",
+      "type": "object",
+      "properties": {
+        "sessionCode": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 12,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 120
+        },
+        "ficha": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 20,
+          "pattern": "^[a-zA-Z0-9\\-]+$"
+        },
+        "instructorUid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "instructorName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "status": {
+          "type": "string",
+          "enum": ["activa", "finalizada"]
+        },
+        "currentSlideIndex": {
+          "type": "integer"
+        },
+        "revealResults": {
+          "type": "boolean"
+        },
+        "tally": {
+          "type": "array",
+          "description": "Fixed 4-element integer array counting option selections [opt0, opt1, opt2, opt3]."
+        },
+        "totalResponses": {
+          "type": "integer"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "sessionCode",
+        "title",
+        "ficha",
+        "instructorUid",
+        "instructorName",
+        "status",
+        "currentSlideIndex",
+        "revealResults",
+        "tally",
+        "totalResponses",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "SensitizationResponse": {
+      "title": "SensitizationResponse",
+      "description": "Individual apprentice vote and short reflection during a real-time sensitization session.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "sessionId": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 12,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "instructorUid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "apprenticeName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "ficha": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 20,
+          "pattern": "^[a-zA-Z0-9\\-]+$"
+        },
+        "slideIndex": {
+          "type": "integer"
+        },
+        "selectedOption": {
+          "type": "integer"
+        },
+        "reflection": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 400
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "uid",
+        "sessionId",
+        "instructorUid",
+        "apprenticeName",
+        "ficha",
+        "slideIndex",
+        "selectedOption",
+        "reflection",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/AdminUser" },
+      "description": "Registry of authorized SENA instructors."
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Learner and instructor profiles keyed by Firebase Auth UID."
+    },
+    "/cohorts/{cohortId}": {
+      "schema": { "$ref": "#/entities/CohortGroup" },
+      "description": "Active and archived SENA fichas/groups configured by instructors."
+    },
+    "/access_logs/{logId}": {
+      "schema": { "$ref": "#/entities/AccessLog" },
+      "description": "Immutable log of apprentice platform entries and registrations."
+    },
+    "/evaluations/{evalId}": {
+      "schema": { "$ref": "#/entities/KnowledgeEvaluation" },
+      "description": "Immutable evaluation attempts with gamification summary."
+    },
+    "/app_settings/{settingId}": {
+      "schema": { "$ref": "#/entities/InstitutionalVideosConfig" },
+      "description": "Global institutional audiovisual configuration (document id 'videos')."
+    },
+    "/sensitization_sessions/{sessionId}": {
+      "schema": { "$ref": "#/entities/SensitizationSession" },
+      "description": "Live classroom sensitization sessions keyed by room code."
+    },
+    "/sensitization_sessions/{sessionId}/responses/{responseId}": {
+      "schema": { "$ref": "#/entities/SensitizationResponse" },
+      "description": "Apprentice responses to live sensitization dilemmas."
+    }
+  }
+}

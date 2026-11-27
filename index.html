@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/sena.png" />
+    <title>Inducción SENA · Identidad y Reglamento del Aprendiz</title>
+    <meta name="description" content="Plataforma interactiva para instructores y aprendices SENA enfocada en la apropiación de la identidad institucional, el Reglamento del Aprendiz, evaluación diagnóstica y sensibilización en tiempo real." />
+    <meta property="og:title" content="Inducción SENA · Identidad y Reglamento del Aprendiz" />
+    <meta property="og:description" content="Apropiación del Reglamento del Aprendiz, Identidad SENA, evaluación por competencias y sensibilización en tiempo real." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem('sena_theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="bg-[#F8FAFC] dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased selection:bg-[#166534]/15 dark:selection:bg-emerald-500/25 selection:text-[#166534] dark:selection:text-emerald-300 transition-colors duration-200">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

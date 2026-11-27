@@ -1,0 +1,6 @@
+{
+  "name": "Inducción SENA · Identidad y Reglamento",
+  "description": "Plataforma interactiva para instructores y aprendices SENA enfocada en la apropiación de la identidad institucional, el Reglamento del Aprendiz, evaluación diagnóstica y sensibilización en tiempo real.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
